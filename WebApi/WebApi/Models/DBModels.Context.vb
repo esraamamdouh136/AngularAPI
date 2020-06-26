@@ -11,17 +11,17 @@ Imports System
 Imports System.Data.Entity
 Imports System.Data.Entity.Infrastructure
 
-Partial Public Class DBModel
+Partial Public Class EmployeeDBEntities2
     Inherits DbContext
 
     Public Sub New()
-        MyBase.New("name=DBModel")
+        MyBase.New("name=EmployeeDBEntities2")
     End Sub
 
     Protected Overrides Sub OnModelCreating(modelBuilder As DbModelBuilder)
         Throw New UnintentionalCodeFirstException()
     End Sub
 
-    Public Overridable Property Employee() As DbSet(Of Employee)
+    Public Overridable Property Employees() As DbSet(Of Employee)
 
 End Class

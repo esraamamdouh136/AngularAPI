@@ -12,17 +12,17 @@ Namespace Controllers
     Public Class EmployeesController
         Inherits System.Web.Http.ApiController
 
-        Private db As New DBModel
+        Private db As New EmployeeDBEntities2
 
         ' GET: api/Employees
-        Function GetEmployee() As IQueryable(Of Employee)
-            Return db.Employee
+        Function GetEmployees() As IQueryable(Of Employee)
+            Return db.Employees
         End Function
 
         ' GET: api/Employees/5
         <ResponseType(GetType(Employee))>
         Function GetEmployee(ByVal id As Integer) As IHttpActionResult
-            Dim employee As Employee = db.Employee.Find(id)
+            Dim employee As Employee = db.Employees.Find(id)
             If IsNothing(employee) Then
                 Return NotFound()
             End If
@@ -63,7 +63,7 @@ Namespace Controllers
                 Return BadRequest(ModelState)
             End If
 
-            db.Employee.Add(employee)
+            db.Employees.Add(employee)
 
             Try
                 db.SaveChanges()
@@ -81,12 +81,12 @@ Namespace Controllers
         ' DELETE: api/Employees/5
         <ResponseType(GetType(Employee))>
         Function DeleteEmployee(ByVal id As Integer) As IHttpActionResult
-            Dim employee As Employee = db.Employee.Find(id)
+            Dim employee As Employee = db.Employees.Find(id)
             If IsNothing(employee) Then
                 Return NotFound()
             End If
 
-            db.Employee.Remove(employee)
+            db.Employees.Remove(employee)
             db.SaveChanges()
 
             Return Ok(employee)
@@ -100,7 +100,7 @@ Namespace Controllers
         End Sub
 
         Private Function EmployeeExists(ByVal id As Integer) As Boolean
-            Return db.Employee.Count(Function(e) e.EmployeeID = id) > 0
+            Return db.Employees.Count(Function(e) e.EmployeeID = id) > 0
         End Function
     End Class
 End Namespace
